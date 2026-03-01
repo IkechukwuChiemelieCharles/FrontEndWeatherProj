@@ -18,6 +18,7 @@ nav {
 }
 
 .background {
+  background-image: url(./assets/images/bg-today-large.svg);
   width: 100%;
 
   flex-direction: row;

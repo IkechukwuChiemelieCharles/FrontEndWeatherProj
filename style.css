@@ -156,6 +156,7 @@ menu h1 {
   border-radius: 0.5rem;
   color: var(--Neutral0);
   font-size: 1.6rem;
+  cursor: pointer;
 }
 
 section {

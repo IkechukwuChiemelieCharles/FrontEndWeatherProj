@@ -30,9 +30,13 @@
           <div class="inputXbtn">
             <div class="input">
               <img src="./assets/images/icon-search.svg" alt="" />
-              <input type="text" placeholder="Search for a place..." />
+              <input
+                id="input"
+                type="text"
+                placeholder="Search for a place..."
+              />
             </div>
-            <button>Search</button>
+            <button id="searchBtn">Search</button>
           </div>
         </menu>
 
@@ -62,16 +66,16 @@
                   <span class="deg">64°</span>
                 </div>
                 <div class="box">
-                  <p>Feels Lie</p>
-                  <span class="deg">64</span>
+                  <p>Humidity</p>
+                  <span class="humidity">46%</span>
                 </div>
                 <div class="box">
-                  <p>Feels Lie</p>
-                  <span class="deg">64</span>
+                  <p>Wind</p>
+                  <span class="wind">9 mph</span>
                 </div>
                 <div class="box">
-                  <p>Feels Lie</p>
-                  <span class="deg">64</span>
+                  <p>Precipitation</p>
+                  <span class="prec">0 in</span>
                 </div>
               </div>
 
@@ -246,5 +250,7 @@
         </section>
       </div>
     </div>
+
+    <script src="./data.js"></script>
   </body>
 </html>
