@@ -1,0 +1,61 @@
+.innerContainer {
+  max-width: 1280px;
+}
+nav {
+  max-width: 1280px;
+}
+
+.inputXbtn {
+  flex-direction: row;
+}
+
+.input input {
+  width: 60%;
+}
+
+.inputXbtn button {
+  width: 40%;
+}
+
+.background {
+  width: 100%;
+
+  flex-direction: row;
+
+  gap: 2rem;
+  padding: 4rem;
+}
+
+.CountryText {
+  align-items: start;
+  flex-direction: column;
+  width: 100%;
+  gap: 2rem;
+}
+
+.weatherCalc {
+  justify-content: end;
+}
+
+.boxes {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.forCastBoxes {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.innerSec {
+  flex-direction: row;
+  /* width: 20%; */
+  /* //// */
+  gap: 2rem;
+}
+
+main {
+  width: 80%;
+  gap: 0;
+}
+
+aside {
+  width: 30%;
+}
