@@ -329,12 +329,17 @@ main {
   align-items: center;
   width: 100%;
 }
-.forecastBox span {
+.forecastBox .max {
   font-family: var(--DMSans);
   color: var(--Neutral0);
   font-size: 1.4rem;
 }
 
+.forecastBox .min {
+  font-family: var(--DMSans);
+  color: var(--Neutral300);
+  font-size: 1.4rem;
+}
 aside {
   display: flex;
   flex-direction: column;
