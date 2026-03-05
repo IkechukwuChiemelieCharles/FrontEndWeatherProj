@@ -10,11 +10,10 @@ const humidity = document.querySelector(".humidity");
 const wind = document.querySelector(".wind");
 const prec = document.querySelector(".prec");
 const weatherImg = document.querySelector(".weatherImg");
-// const max = document.querySelector(".max");
-// const min = document.querySelector(".min");
+const dailyDropDown = document.querySelector(".dailyDropDown");
+const day = document.querySelectorAll(".day");
 const forCastBoxes = document.querySelectorAll(".forecastBox");
-
-console.log(forCastBoxes);
+const rects = document.querySelectorAll(".rect");
 
 searchBtn.addEventListener("click", function () {
   console.log(input.value);
@@ -152,6 +151,88 @@ async function weatherApi() {
 
       // console.log(code);
     });
+
+    dailyDropDown.innerHTML = "";
+
+    WeatherData.daily.time.forEach(function (date) {
+      const option = document.createElement("option");
+      option.value = date;
+      option.textContent = new Date(date).toLocaleDateString("en-US", {
+        weekday: "short",
+      });
+      dailyDropDown.appendChild(option);
+
+      console.log(option);
+    });
+
+    dailyDropDown.addEventListener("change", function () {
+      console.log(this.value);
+
+      const selectedDate = this.value;
+      showHourly(selectedDate);
+    });
+
+    function showHourly(selectedDate) {
+      const hourly = WeatherData.hourly;
+
+      let hourIndex = 0;
+
+      const filteredHours = [];
+
+      hourly.time.forEach((time, i) => {
+        if (time.startsWith(selectedDate)) {
+          const temp = hourly.temperature_2m[i];
+          const code = hourly.weather_code[i];
+
+          filteredHours.push({
+            temp: temp,
+            code: code,
+            time: time,
+          });
+
+          console.log(time, temp, code);
+
+          if (rects[hourIndex]) {
+            rects[hourIndex].querySelector("span").textContent = `${temp}°`;
+
+            const date = new Date(time);
+
+            const formattedTime = date.toLocaleTimeString("en-US", {
+              hour: "numeric",
+              hour12: true,
+            });
+
+            rects[hourIndex].querySelector("p").textContent =
+              `${formattedTime}`;
+
+            const rectIMG = rects[hourIndex].querySelector("img");
+
+            if (code === 0) {
+              rectIMG.src = "assets/images/icon-sunny.webp";
+            } else if (code === 1 || code === 2) {
+              rectIMG.src = "assets/images/icon-partly-cloudy.webp";
+            } else if (code === 3) {
+              rectIMG.src = "assets/images/icon-overcast.webp";
+            } else if (code === 45 || code === 48) {
+              rectIMG.src = "assets/images/icon-fog.webp";
+            } else if (code === 51 || code === 53 || code === 55) {
+              rectIMG.src = "assets/images/icon-drizzle.webp";
+            } else if (code === 61 || code === 63 || code === 65) {
+              rectIMG.src = "assets/images/icon-rain.webp";
+            } else if (code === 71 || code === 73 || code === 75) {
+              rectIMG.src = "assets/images/icon-snow.webp";
+            } else if (code === 95) {
+              rectIMG.src = "assets/images/icon-storm.webp";
+            }
+          }
+          //   .src =
+          //     "assets/images/icon-drizzle.webp";
+          // }
+
+          hourIndex++;
+        }
+      });
+    }
 
     console.log(WeatherData);
   } catch (err) {

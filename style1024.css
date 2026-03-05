@@ -10,7 +10,12 @@ nav {
 }
 
 .input input {
-  width: 60%;
+  width: 100%;
+  /* padding-left: 6rem; */
+}
+
+.input {
+  padding-right: 0;
 }
 
 .inputXbtn button {
