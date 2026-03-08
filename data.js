@@ -14,11 +14,25 @@ const dailyDropDown = document.querySelector(".dailyDropDown");
 const day = document.querySelectorAll(".day");
 const forCastBoxes = document.querySelectorAll(".forecastBox");
 const rects = document.querySelectorAll(".rect");
+const darkMode = document.querySelector(".dark-mode");
+const darkicons = document.querySelectorAll(".dark");
+const error = document.querySelector(".error");
+const menu = document.querySelector("menu");
+const section = document.querySelector("section");
+const errorBTN = document.querySelector(".errorBTN");
+const loading = document.querySelector(".loading");
 
 searchBtn.addEventListener("click", function () {
   console.log(input.value);
 
   weatherApi();
+});
+
+errorBTN.addEventListener("click", function () {
+  menu.classList.remove("hidden");
+  section.classList.remove("hidden");
+  error.classList.add("hidden");
+  console.log("click");
 });
 
 // Got  Dates and year
@@ -29,8 +43,6 @@ const Currdate = now.getDate();
 const year = now.getFullYear();
 date.textContent = `${dayName}, ${monthName}, ${Currdate}, ${year}`;
 
-console.log(weatherImg.src);
-
 async function weatherApi() {
   try {
     //Fetched Api that converts Country to Lat and long
@@ -38,16 +50,21 @@ async function weatherApi() {
       `https://nominatim.openstreetmap.org/search?q=${input.value}&format=json&limit=1`,
     );
 
-    if (!res.ok) throw new Error(`Now Data Found ${"d"}`);
+    if (!res.ok) {
+      // menu.classList.add("hidden");
+      // error.classList.remove("hidden");
+
+      throw new Error(`Now Data Found ${"d"}`);
+    }
+
+    // menu.classList.add("hidden");
+    section.classList.add("hidden");
+    // error.classList.add("hidden");
+    loading.classList.remove("hidden");
 
     const data = await res.json();
 
     country.textContent = data[0].name;
-
-    // console.log(data);
-
-    // console.log(data[0].lat);
-    // console.log(data[0].lon);
 
     // fetched Api that uses lag and long goten from first api to fetch country weather  data
     const WeatherRes = await fetch(
@@ -158,19 +175,19 @@ async function weatherApi() {
       const option = document.createElement("option");
       option.value = date;
       option.textContent = new Date(date).toLocaleDateString("en-US", {
-        weekday: "short",
+        weekday: "long",
       });
       dailyDropDown.appendChild(option);
 
       console.log(option);
     });
 
-    dailyDropDown.addEventListener("change", function () {
-      console.log(this.value);
+    // dailyDropDown.addEventListener("change", function () {
+    //   console.log(this.value);
 
-      const selectedDate = this.value;
-      showHourly(selectedDate);
-    });
+    const selectedDate = dailyDropDown.value;
+    showHourly(selectedDate);
+    // });
 
     function showHourly(selectedDate) {
       const hourly = WeatherData.hourly;
@@ -233,10 +250,22 @@ async function weatherApi() {
         }
       });
     }
+    darkicons.forEach(function (icon) {
+      icon.classList.remove("dark-mode");
+    });
+    // darkMode.classList.add = "hidden";
+
+    menu.classList.remove("hidden");
+    section.classList.remove("hidden");
+    // error.classList.add("hidden");
+    loading.classList.add("hidden");
 
     console.log(WeatherData);
   } catch (err) {
     console.log(err);
+    menu.classList.add("hidden");
+    section.classList.add("hidden");
+    error.classList.remove("hidden");
   }
 }
 
