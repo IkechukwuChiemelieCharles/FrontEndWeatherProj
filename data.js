@@ -21,6 +21,67 @@ const menu = document.querySelector("menu");
 const section = document.querySelector("section");
 const errorBTN = document.querySelector(".errorBTN");
 const loading = document.querySelector(".loading");
+const unitDropDown = document.querySelector(".unitDropDown");
+const units = document.querySelector(".units");
+const imperialSwitch = document.querySelector(".imperialSwitch");
+const metricSwitch = document.querySelector(".metricSwitch");
+const metricUnit = document.querySelectorAll(".metricUnit");
+const imperialUnit = document.querySelectorAll(".imperialUnit");
+const impCheck = document.querySelectorAll(".impCheck");
+const metCheck = document.querySelectorAll(".metCheck");
+
+imperialSwitch.addEventListener("click", function () {
+  imperialSwitch.classList.add("hidden");
+  metricSwitch.classList.remove("hidden");
+
+  imperialSwitch.classList.add("userSelected");
+  metricSwitch.classList.remove("userSelected");
+
+  imperialUnit.forEach(function (IU) {
+    IU.classList.add("active");
+  });
+  metricUnit.forEach(function (IU) {
+    IU.classList.remove("active");
+  });
+  impCheck.forEach(function (IC) {
+    IC.classList.remove("hidden");
+  });
+  metCheck.forEach(function (MC) {
+    MC.classList.add("hidden");
+  });
+
+  // if (this.classList.contains("imperial")) {
+  //   console.log(this);
+  // }
+});
+
+metricSwitch.addEventListener("click", function () {
+  imperialSwitch.classList.remove("userSelected");
+  metricSwitch.classList.add("userSelected");
+
+  imperialSwitch.classList.remove("hidden");
+  metricSwitch.classList.add("hidden");
+
+  metricUnit.forEach(function (MU) {
+    MU.classList.add("active");
+  });
+  imperialUnit.forEach(function (IU) {
+    IU.classList.remove("active");
+  });
+
+  impCheck.forEach(function (IC) {
+    IC.classList.add("hidden");
+  });
+  metCheck.forEach(function (MC) {
+    MC.classList.remove("hidden");
+  });
+
+  // if ((this.classList.contains = "metric")) {
+  //   console.log(this);
+  // }
+
+  console.log("click");
+});
 
 searchBtn.addEventListener("click", function () {
   console.log(input.value);
@@ -33,6 +94,9 @@ errorBTN.addEventListener("click", function () {
   section.classList.remove("hidden");
   error.classList.add("hidden");
   console.log("click");
+});
+units.addEventListener("click", function () {
+  unitDropDown.classList.toggle("hidden");
 });
 
 // Got  Dates and year
@@ -66,9 +130,38 @@ async function weatherApi() {
 
     country.textContent = data[0].name;
 
+    // if (imperialSwitch.classList.contains("userSelected")) {
+    //   console.log("mf hs it");
+    // }
+    // {
+    //   console.log("mf doesnt");
+    // }
+    const contained = imperialSwitch.classList.contains("userSelected")
+      ? true
+      : false;
+
+    console.log(contained);
+    const unit = contained;
+
+    // const tempUnit = unit === "metric" ? "celsius" : "fahrenheit";
+    // const windUnit = unit === "metric" ? "kmh" : "mph";
+    // const precipUnit = unit === "metric" ? "mm" : "inch";
+
+    const tempUnit = unit ? "celsius" : "fahrenheit";
+    const windUnit = unit ? "kmh" : "mph";
+    const precipUnit = unit ? "mm" : "inch";
+
+    // const tempUnit = "celsius";
+    // const windUnit = "kmh";
+    // const precipUnit = "mm";
+
     // fetched Api that uses lag and long goten from first api to fetch country weather  data
+    // const WeatherRes = await fetch(
+    //   `https://api.open-meteo.com/v1/forecast?latitude=${data[0].lat}&longitude=${data[0].lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&hourly=temperature_2m,weather_code,precipitation,wind_speed_10m&timezone=auto`,
+    // );
+
     const WeatherRes = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${data[0].lat}&longitude=${data[0].lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&hourly=temperature_2m,weather_code,precipitation,wind_speed_10m&timezone=auto`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${data[0].lat}&longitude=${data[0].lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&hourly=temperature_2m,weather_code,precipitation,wind_speed_10m&temperature_unit=${tempUnit}&windspeed_unit=${windUnit}&precipitation_unit=${precipUnit}&timezone=auto`,
     );
 
     const WeatherData = await WeatherRes.json();
@@ -161,12 +254,6 @@ async function weatherApi() {
       } else if (code === 95) {
         dailyWeatherImg.src = "assets/images/icon-storm.webp";
       }
-
-      // console.log(box.querySelectorAll("p"));
-      // box.querySelectorAll(".max")[i].textContent = max;
-      // box.querySelectorAll(".min")[i].textContent = min;
-
-      // console.log(code);
     });
 
     dailyDropDown.innerHTML = "";
@@ -179,15 +266,15 @@ async function weatherApi() {
       });
       dailyDropDown.appendChild(option);
 
-      console.log(option);
+      // console.log(option);
     });
 
-    // dailyDropDown.addEventListener("change", function () {
-    //   console.log(this.value);
+    dailyDropDown.addEventListener("change", function () {
+      //   console.log(this.value);
 
-    const selectedDate = dailyDropDown.value;
-    showHourly(selectedDate);
-    // });
+      const selectedDate = dailyDropDown.value;
+      showHourly(selectedDate);
+    });
 
     function showHourly(selectedDate) {
       const hourly = WeatherData.hourly;
@@ -207,7 +294,7 @@ async function weatherApi() {
             time: time,
           });
 
-          console.log(time, temp, code);
+          // console.log(time, temp, code);
 
           if (rects[hourIndex]) {
             rects[hourIndex].querySelector("span").textContent = `${temp}°`;
