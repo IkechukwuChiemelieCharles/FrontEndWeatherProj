@@ -3,6 +3,8 @@
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#searchBtn");
 const country = document.querySelector(".country");
+const locationInput = document.querySelector(".locationInput");
+
 const date = document.querySelector(".date");
 const degree = document.querySelector(".degree");
 const deg = document.querySelector(".deg");
@@ -29,6 +31,21 @@ const metricUnit = document.querySelectorAll(".metricUnit");
 const imperialUnit = document.querySelectorAll(".imperialUnit");
 const impCheck = document.querySelectorAll(".impCheck");
 const metCheck = document.querySelectorAll(".metCheck");
+const celsius = document.querySelector(".celsius");
+const fahrenheit = document.querySelector(".fahrenheit");
+const km = document.querySelector(".km");
+const mph = document.querySelector(".mph");
+const mm = document.querySelector(".mm");
+const inch = document.querySelector(".inch");
+const tempCheck1 = document.querySelector(".tempCheck1");
+const tempCheck2 = document.querySelector(".tempCheck2");
+const windCheck1 = document.querySelector(".windCheck1");
+const windCheck2 = document.querySelector(".windCheck2");
+const precCheck1 = document.querySelector(".precCheck1");
+const precCheck2 = document.querySelector(".precCheck2");
+const body = window.document.querySelector("body");
+
+let lastLocation = "";
 
 imperialSwitch.addEventListener("click", function () {
   imperialSwitch.classList.add("hidden");
@@ -49,10 +66,58 @@ imperialSwitch.addEventListener("click", function () {
   metCheck.forEach(function (MC) {
     MC.classList.add("hidden");
   });
+  if (lastLocation) weatherApi();
+});
 
-  // if (this.classList.contains("imperial")) {
-  //   console.log(this);
-  // }
+celsius.addEventListener("click", function () {
+  console.log(celsius);
+  tempCheck1.classList.remove("hidden");
+  tempCheck2.classList.add("hidden");
+  fahrenheit.classList.remove("active");
+  celsius.classList.add("active");
+  if (lastLocation) weatherApi();
+});
+fahrenheit.addEventListener("click", function () {
+  console.log(fahrenheit);
+  // impCheck.forEach(function (IC) {
+  tempCheck1.classList.add("hidden");
+  tempCheck2.classList.remove("hidden");
+  fahrenheit.classList.add("active");
+  celsius.classList.remove("active");
+  if (lastLocation) weatherApi();
+  // });
+});
+km.addEventListener("click", function () {
+  console.log(km);
+  windCheck1.classList.remove("hidden");
+  windCheck2.classList.add("hidden");
+  mph.classList.remove("active");
+  km.classList.add("active");
+  if (lastLocation) weatherApi();
+});
+mph.addEventListener("click", function () {
+  console.log(mph);
+  windCheck1.classList.add("hidden");
+  windCheck2.classList.remove("hidden");
+  mph.classList.add("active");
+  km.classList.remove("active");
+  if (lastLocation) weatherApi();
+});
+mm.addEventListener("click", function () {
+  console.log(mm);
+  precCheck1.classList.remove("hidden");
+  precCheck2.classList.add("hidden");
+  inch.classList.remove("active");
+  mm.classList.add("active");
+  if (lastLocation) weatherApi();
+});
+inch.addEventListener("click", function () {
+  console.log(inch);
+  precCheck1.classList.add("hidden");
+  precCheck2.classList.remove("hidden");
+  inch.classList.add("active");
+  mm.classList.remove("active");
+  if (lastLocation) weatherApi();
 });
 
 metricSwitch.addEventListener("click", function () {
@@ -76,6 +141,8 @@ metricSwitch.addEventListener("click", function () {
     MC.classList.remove("hidden");
   });
 
+  if (lastLocation) weatherApi();
+
   // if ((this.classList.contains = "metric")) {
   //   console.log(this);
   // }
@@ -85,6 +152,7 @@ metricSwitch.addEventListener("click", function () {
 
 searchBtn.addEventListener("click", function () {
   console.log(input.value);
+  lastLocation = input.value;
 
   weatherApi();
 });
@@ -95,10 +163,14 @@ errorBTN.addEventListener("click", function () {
   error.classList.add("hidden");
   console.log("click");
 });
-units.addEventListener("click", function () {
+units.addEventListener("click", function (e) {
   unitDropDown.classList.toggle("hidden");
+  e.stopPropagation();
 });
 
+body.addEventListener("click", function () {
+  unitDropDown.classList.add("hidden");
+});
 // Got  Dates and year
 const now = new Date();
 const dayName = now.toLocaleDateString("en-US", { weekday: "long" });
@@ -109,6 +181,18 @@ date.textContent = `${dayName}, ${monthName}, ${Currdate}, ${year}`;
 
 async function weatherApi() {
   try {
+    const countryRes = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${input.value}&format=json&addressdetails=1&limit=1`,
+    );
+
+    console.log(countryRes);
+
+    const countryData = await countryRes.json();
+
+    console.log(countryData);
+    locationInput.textContent = countryData[0].address.city;
+    country.textContent = countryData[0].address.country;
+
     //Fetched Api that converts Country to Lat and long
     const res = await fetch(
       `https://nominatim.openstreetmap.org/search?q=${input.value}&format=json&limit=1`,
@@ -128,28 +212,36 @@ async function weatherApi() {
 
     const data = await res.json();
 
-    country.textContent = data[0].name;
-
     // if (imperialSwitch.classList.contains("userSelected")) {
     //   console.log("mf hs it");
     // }
     // {
     //   console.log("mf doesnt");
     // }
-    const contained = imperialSwitch.classList.contains("userSelected")
-      ? true
-      : false;
+    // const isMetric = metricSwitch.classList.contains("userSelected");
 
-    console.log(contained);
-    const unit = contained;
+    // const tempUnit = isMetric ? "celsius" : "fahrenheit";
+    // const windUnit = isMetric ? "kmh" : "mph";
+    // const precipUnit = isMetric ? "mm" : "inch";
+
+    const tempUnit = celsius.classList.contains("active")
+      ? "celsius"
+      : "fahrenheit";
+
+    const windUnit = km.classList.contains("active") ? "kmh" : "mph";
+
+    const precipUnit = mm.classList.contains("active") ? "mm" : "inch";
+
+    // console.log(contained);
+    // const unit = contained;
 
     // const tempUnit = unit === "metric" ? "celsius" : "fahrenheit";
     // const windUnit = unit === "metric" ? "kmh" : "mph";
     // const precipUnit = unit === "metric" ? "mm" : "inch";
 
-    const tempUnit = unit ? "celsius" : "fahrenheit";
-    const windUnit = unit ? "kmh" : "mph";
-    const precipUnit = unit ? "mm" : "inch";
+    // const tempUnit = unit ? "celsius" : "fahrenheit";
+    // const windUnit = unit ? "kmh" : "mph";
+    // const precipUnit = unit ? "mm" : "inch";
 
     // const tempUnit = "celsius";
     // const windUnit = "kmh";
@@ -268,6 +360,11 @@ async function weatherApi() {
 
       // console.log(option);
     });
+
+    const firstDay = WeatherData.daily.time[0];
+    dailyDropDown.value = firstDay;
+
+    showHourly(firstDay);
 
     dailyDropDown.addEventListener("change", function () {
       //   console.log(this.value);

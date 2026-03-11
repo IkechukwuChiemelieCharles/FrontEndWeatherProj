@@ -29,54 +29,54 @@
                 <li class="metricSwitch metric">Switch to Metric</li>
 
                 <p>Temperature</p>
-                <li class="active imperialUnit">
+                <li class="active imperialUnit celsius">
                   Celsius(°C)
                   <img
-                    class="impCheck"
+                    class="impCheck tempCheck1"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
                 </li>
-                <li class="metricUnit">
+                <li class="metricUnit fahrenheit">
                   Fahrenheit
                   <img
-                    class="hidden metCheck"
+                    class="hidden metCheck tempCheck2"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
                 </li>
 
                 <p>Wind Speed</p>
-                <li class="active imperialUnit">
+                <li class="active imperialUnit km">
                   km/h
                   <img
-                    class="impCheck"
+                    class="impCheck windCheck1"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
                 </li>
-                <li class="metricUnit">
+                <li class="metricUnit mph">
                   mph
                   <img
-                    class="hidden metCheck"
+                    class="hidden metCheck windCheck2"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
                 </li>
 
                 <p>Precipitation</p>
-                <li class="active imperialUnit">
+                <li class="active imperialUnit mm">
                   Millimeters (mm)
                   <img
-                    class="impCheck"
+                    class="impCheck precCheck1"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
                 </li>
-                <li class="metricUnit">
+                <li class="metricUnit inch">
                   Inches ()in
                   <img
-                    class="hidden metCheck"
+                    class="hidden metCheck precCheck2"
                     src="./assets/images/icon-checkmark.svg"
                     alt=""
                   />
@@ -130,7 +130,10 @@
             <main>
               <div class="background">
                 <div class="CountryText">
-                  <h4 class="country">Enter a Location</h4>
+                  <div class="stateNdCountry">
+                    <h4 class="locationInput">Enter a Location</h4>
+                    <h4 class="country"></h4>
+                  </div>
                   <p class="date"></p>
                 </div>
 

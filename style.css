@@ -274,7 +274,17 @@ main {
   flex-direction: column;
   width: 100%;
 }
-
+.stateNdCountry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.locationInput {
+  font-size: 2rem;
+  font-family: var(--DMSans);
+  color: var(--Neutral0);
+}
 .country {
   font-size: 2rem;
   font-family: var(--DMSans);
@@ -321,7 +331,7 @@ main {
 }
 .boxes .box {
   /* /* width: 50%; */
-  height: 10rem;
+  height: 12rem;
   border-radius: 1rem;
   background-color: var(--Neutral700);
   display: flex;
