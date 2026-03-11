@@ -165,12 +165,16 @@ errorBTN.addEventListener("click", function () {
 });
 units.addEventListener("click", function (e) {
   unitDropDown.classList.toggle("hidden");
-  e.stopPropagation();
+  // e.stopPropagation();
 });
 
-body.addEventListener("click", function () {
+menu.addEventListener("click", function () {
   unitDropDown.classList.add("hidden");
 });
+section.addEventListener("click", function () {
+  unitDropDown.classList.add("hidden");
+});
+
 // Got  Dates and year
 const now = new Date();
 const dayName = now.toLocaleDateString("en-US", { weekday: "long" });

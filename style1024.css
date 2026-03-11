@@ -1,8 +1,8 @@
 .innerContainer {
-  max-width: 1280px;
+  max-width: 1440px;
 }
 nav {
-  max-width: 1280px;
+  max-width: 1440px;
 }
 
 .inputXbtn {
@@ -64,4 +64,15 @@ main {
 
 aside {
   width: 30%;
+}
+
+.locationInput {
+  font-size: 3rem;
+}
+.country {
+  font-size: 3rem;
+}
+
+.date {
+  font-size: 1.8rem;
 }

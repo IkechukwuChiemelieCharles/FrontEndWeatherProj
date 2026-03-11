@@ -71,6 +71,7 @@ header {
   align-items: center;
   width: 100%;
   /* margin-top: 2rem; */
+  border: 1px solid red;
 }
 nav {
   display: flex;
@@ -113,6 +114,7 @@ nav .logo {
   top: 4rem;
   border-radius: 0.5rem;
   padding: 2rem;
+  top: 7rem;
 }
 
 .innerunitDropDown {
@@ -165,6 +167,8 @@ menu {
   align-items: center;
   gap: 4rem;
   margin-top: 4rem;
+  width: 100%;
+  max-width: 1024px;
 }
 
 menu h1 {
