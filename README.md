@@ -48,5 +48,5 @@ Users should be able to:
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/IkechukwuChiemelieCharles)
-- LinkedIn - [@yourusername](https://www.linkedin.com/in/chiemelie-ikechukwu-297ab4262)
+- Frontend Mentor - [@IkechukwuChiemelieCharles](https://www.frontendmentor.io/profile/IkechukwuChiemelieCharles)
+- LinkedIn - [@ChiemelieIkechukwu](https://www.linkedin.com/in/chiemelie-ikechukwu-297ab4262)
