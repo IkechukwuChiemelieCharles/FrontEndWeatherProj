@@ -76,10 +76,12 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 90%;
+  height: 10rem;
   color: var(--Neutral0);
   max-width: 768px;
-  position: relative;
+  position: fixed;
+  background-color: var(--Neutral900);
 }
 
 nav .logo {
@@ -162,6 +164,7 @@ menu {
   justify-content: center;
   align-items: center;
   gap: 4rem;
+  margin-top: 4rem;
 }
 
 menu h1 {
